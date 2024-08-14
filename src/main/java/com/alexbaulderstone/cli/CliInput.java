@@ -1,12 +1,19 @@
 package com.alexbaulderstone.cli;
 
+import java.util.Scanner;
+
 import com.alexbaulderstone.gamelogic.IGameInput;
 import com.alexbaulderstone.gamelogic.PlayerAction;
 
 public class CliInput implements IGameInput {
+    private Scanner s;
+
+    CliInput() {
+        s = new Scanner(System.in);
+    }
 
     @Override
-    public String getValidCoordinate() {
+    public String getValidCoordinate(byte gridSize) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getValidCoordinate'");
     }
@@ -29,4 +36,7 @@ public class CliInput implements IGameInput {
         throw new UnsupportedOperationException("Unimplemented method 'getAction'");
     }
 
+    public void close() {
+        s.close();
+    }
 }

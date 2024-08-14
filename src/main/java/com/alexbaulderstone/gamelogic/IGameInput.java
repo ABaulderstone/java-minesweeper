@@ -1,7 +1,7 @@
 package com.alexbaulderstone.gamelogic;
 
 public interface IGameInput {
-    public String getValidCoordinate();
+    public String getValidCoordinate(byte gridSize);
 
     public byte getGridSize();
 

@@ -7,6 +7,8 @@ public class Cell {
     @Getter
     @Setter
     private boolean isBomb;
+    @Getter
+    @Setter
     private boolean isRevealed;
     private boolean isFlagged;
     @Getter
@@ -15,7 +17,7 @@ public class Cell {
 
     public Cell() {
         this.isBomb = false;
-        this.isRevealed = true;
+        this.isRevealed = false;
         this.isFlagged = false;
         this.surroundingBombs = 0;
     }

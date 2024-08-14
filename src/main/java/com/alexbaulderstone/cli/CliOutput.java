@@ -1,5 +1,7 @@
 package com.alexbaulderstone.cli;
 
+import java.io.IOException;
+
 import com.alexbaulderstone.gamelogic.Board;
 import com.alexbaulderstone.gamelogic.Cell;
 
@@ -35,6 +37,18 @@ public class CliOutput {
             }
         }
         printHorizontalBorder(cols, cellWidth);
+    }
+
+    public static void clearScreen() {
+        try {
+            if (System.getProperty("os.name").contains("Windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                new ProcessBuilder("clear").inheritIO().start().waitFor();
+            }
+        } catch (IOException | InterruptedException ex) {
+            ex.printStackTrace();
+        }
     }
 
     private static void printHorizontalBorder(int cols, int cellWidth) {
