@@ -3,6 +3,7 @@ package com.alexbaulderstone.gamelogic;
 public class Game {
     private IGameInput input;
     private GameState gameState;
+    private Board board;
 
     enum GameState {
         PLAYING,
@@ -16,6 +17,7 @@ public class Game {
 
     public void run() {
         this.setUp();
+
         while (gameState == GameState.PLAYING) {
 
         }
@@ -23,6 +25,7 @@ public class Game {
 
     private void setUp() {
         byte gridSize = input.getGridSize();
+        this.board = new Board(gridSize);
         this.gameState = GameState.PLAYING;
 
     }

@@ -1,5 +1,8 @@
 package com.alexbaulderstone.gamelogic;
 
+import lombok.Getter;
+
+@Getter
 public class Board {
     private Cell[][] grid;
 

@@ -3,8 +3,6 @@ package com.alexbaulderstone.gamelogic;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
 public class Cell {
     private boolean isBomb;
     private boolean isRevealed;
@@ -16,6 +14,13 @@ public class Cell {
         this.isRevealed = false;
         this.isFlagged = false;
         this.surroundingBombs = 0;
+    }
+
+    public String showFace() {
+        if (this.isRevealed) {
+            return String.format("%s", this.surroundingBombs);
+        }
+        return "?";
     }
 
 }
