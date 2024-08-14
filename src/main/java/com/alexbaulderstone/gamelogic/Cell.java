@@ -21,7 +21,10 @@ public class Cell {
     }
 
     public String showFace() {
-        if (!this.isRevealed) {
+        if (isFlagged) {
+            return "F";
+        }
+        if (!isRevealed) {
             return "?";
         }
         if (isBomb) {

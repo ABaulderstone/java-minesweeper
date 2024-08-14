@@ -11,7 +11,7 @@ public class Board {
     public Board(byte gridSize) {
         grid = constructGrid(gridSize);
         placeBombs(gridSize);
-        calculateSurroundingBombs(grid);
+        calculateSurroundingBombs();
 
     }
 
@@ -40,12 +40,12 @@ public class Board {
         }
     }
 
-    private void calculateSurroundingBombs(Cell[][] grid) {
+    private void calculateSurroundingBombs() {
         for (byte i = 0; i < grid.length; i++) {
             for (byte j = 0; j < grid[i].length; j++) {
                 byte surroundingBombCount = 0;
                 Cell cell = grid[i][j];
-                ArrayList<Cell> neighbouringCells = getNeighbouringCells(grid, i, j);
+                ArrayList<Cell> neighbouringCells = getNeighbouringCells(i, j);
                 for (Cell neighbour : neighbouringCells) {
                     if (neighbour.isBomb()) {
                         surroundingBombCount++;
@@ -56,7 +56,7 @@ public class Board {
         }
     }
 
-    private ArrayList<Cell> getNeighbouringCells(Cell[][] grid, byte xCoord, byte yCoord) {
+    private ArrayList<Cell> getNeighbouringCells(byte xCoord, byte yCoord) {
         ArrayList<Cell> neighbouringCells = new ArrayList<>();
         int[][] neighbourPositions = {
                 { -1, -1 }, // Top-left
