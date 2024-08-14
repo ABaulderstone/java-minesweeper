@@ -8,7 +8,7 @@ import com.alexbaulderstone.gamelogic.PlayerAction;
 public class CliInput implements IGameInput {
     private Scanner s;
 
-    CliInput() {
+    public CliInput() {
         s = new Scanner(System.in);
     }
 
@@ -20,8 +20,12 @@ public class CliInput implements IGameInput {
 
     @Override
     public byte getGridSize() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getGridSize'");
+        byte gridSize = 0;
+        while (gridSize < 2 || gridSize > 10) {
+            System.out.println("Please enter a grid size between 2-10");
+            gridSize = s.nextByte();
+        }
+        return gridSize;
     }
 
     @Override
