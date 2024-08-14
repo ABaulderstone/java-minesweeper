@@ -9,6 +9,8 @@ public class Cell {
     private boolean isBomb;
     private boolean isRevealed;
     private boolean isFlagged;
+    @Getter
+    @Setter
     private byte surroundingBombs;
 
     public Cell() {
