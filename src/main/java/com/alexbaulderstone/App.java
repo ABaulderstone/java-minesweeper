@@ -9,7 +9,7 @@ import com.alexbaulderstone.gamelogic.Board;
  */
 public class App {
     public static void main(String[] args) {
-        Board testBoard = new Board((byte) 2);
+        Board testBoard = new Board((byte) 5);
         CliOutput.drawBoard(testBoard);
 
     }

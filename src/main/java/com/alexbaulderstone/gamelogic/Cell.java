@@ -1,8 +1,5 @@
 package com.alexbaulderstone.gamelogic;
 
-import lombok.Getter;
-import lombok.Setter;
-
 public class Cell {
     private boolean isBomb;
     private boolean isRevealed;
