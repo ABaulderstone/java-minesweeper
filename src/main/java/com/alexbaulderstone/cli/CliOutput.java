@@ -2,13 +2,32 @@ package com.alexbaulderstone.cli;
 
 import java.io.IOException;
 
-import com.alexbaulderstone.gamelogic.Board;
-import com.alexbaulderstone.gamelogic.Cell;
-import com.alexbaulderstone.gamelogic.IGameOutput;
+import com.alexbaulderstone.gamelogic.board.Board;
+import com.alexbaulderstone.gamelogic.board.Cell;
+import com.alexbaulderstone.gamelogic.interfaces.IGameOutput;
 
 public class CliOutput implements IGameOutput {
+
+    public static void clearScreen() {
+        try {
+            if (System.getProperty("os.name").contains("Windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                new ProcessBuilder("clear").inheritIO().start().waitFor();
+            }
+        } catch (IOException | InterruptedException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public CliOutput() {
 
+    }
+
+    public void displayLossMessage() {
+
+        System.out.println("BOOM");
+        System.out.println("Sorry you hit a bomb. Game over");
     }
 
     public void drawBoard(Board board) {
@@ -39,18 +58,6 @@ public class CliOutput implements IGameOutput {
             }
         }
         printHorizontalBorder(cols, cellWidth);
-    }
-
-    public static void clearScreen() {
-        try {
-            if (System.getProperty("os.name").contains("Windows")) {
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            } else {
-                new ProcessBuilder("clear").inheritIO().start().waitFor();
-            }
-        } catch (IOException | InterruptedException ex) {
-            ex.printStackTrace();
-        }
     }
 
     private void printHorizontalBorder(int cols, int cellWidth) {

@@ -1,6 +1,6 @@
 package com.alexbaulderstone.cli;
 
-import com.alexbaulderstone.gamelogic.IGameParser;
+import com.alexbaulderstone.gamelogic.interfaces.IGameParser;
 
 public class CliParser implements IGameParser {
 

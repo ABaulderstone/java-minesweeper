@@ -4,9 +4,9 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.alexbaulderstone.gamelogic.IGameInput;
-import com.alexbaulderstone.gamelogic.InvalidInputCallback;
 import com.alexbaulderstone.gamelogic.PlayerAction;
+import com.alexbaulderstone.gamelogic.interfaces.IGameInput;
+import com.alexbaulderstone.gamelogic.interfaces.InvalidInputCallback;
 
 public class CliInput implements IGameInput {
     private Scanner s;

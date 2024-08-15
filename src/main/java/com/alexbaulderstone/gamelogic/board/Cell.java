@@ -1,12 +1,10 @@
-package com.alexbaulderstone.gamelogic;
+package com.alexbaulderstone.gamelogic.board;
 
 import lombok.Getter;
 import lombok.Setter;
 
 public class Cell {
-    @Getter
-    @Setter
-    private boolean isBomb;
+
     @Getter
     @Setter
     private boolean isRevealed;
@@ -19,13 +17,19 @@ public class Cell {
     @Getter
     private byte yCoord;
 
+    private CellType cellType;
+
     public Cell(byte xCoord, byte yCoord) {
-        this.isBomb = false;
         this.isRevealed = false;
         this.isFlagged = false;
         this.surroundingBombs = 0;
         this.xCoord = xCoord;
         this.yCoord = yCoord;
+        this.cellType = CellType.EMPTY;
+    }
+
+    public boolean isBomb() {
+        return this.cellType == CellType.BOMB;
     }
 
     public String showFace() {
@@ -35,7 +39,7 @@ public class Cell {
         if (!isRevealed) {
             return "?";
         }
-        if (isBomb) {
+        if (isBomb()) {
             return "X";
         }
         if (surroundingBombs == 0) {
@@ -44,10 +48,16 @@ public class Cell {
         return String.format("%s", this.surroundingBombs);
     }
 
-    @Override
-    public String toString() {
-        return "Cell [isBomb=" + isBomb + ", isRevealed=" + isRevealed + ", isFlagged=" + isFlagged
-                + ", surroundingBombs=" + surroundingBombs + ", xCoord=" + xCoord + ", yCoord=" + yCoord + "]";
+    protected void setBomb() {
+        this.cellType = CellType.BOMB;
+    }
+
+    protected CellType getCellType() {
+        return this.cellType;
+    }
+
+    protected void setCellType(CellType newType) {
+        this.cellType = newType;
     }
 
 }

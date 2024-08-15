@@ -1,6 +1,11 @@
 package com.alexbaulderstone.gamelogic;
 
 import com.alexbaulderstone.cli.CliOutput;
+import com.alexbaulderstone.gamelogic.board.Board;
+import com.alexbaulderstone.gamelogic.board.CellType;
+import com.alexbaulderstone.gamelogic.interfaces.IGameInput;
+import com.alexbaulderstone.gamelogic.interfaces.IGameOutput;
+import com.alexbaulderstone.gamelogic.interfaces.IGameParser;
 
 public class Game {
     private IGameInput input;
@@ -28,8 +33,16 @@ public class Game {
             drawBoard();
             String coordString = input.getValidCoordinate((byte) board.getGrid().length, this::drawBoard);
             byte[] coords = parser.translateCoordinateString(coordString);
-            board.revealCell(coords[0], coords[1]);
+            CellType result = board.revealCell(coords[0], coords[1]);
+            if (result == CellType.EMPTY) {
+                gameState = GameState.LOST;
+            }
             CliOutput.clearScreen();
+        }
+
+        if (gameState == GameState.LOST) {
+            drawBoard();
+            output.displayLossMessage();
         }
     }
 

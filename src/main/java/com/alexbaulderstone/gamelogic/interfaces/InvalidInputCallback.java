@@ -1,4 +1,4 @@
-package com.alexbaulderstone.gamelogic;
+package com.alexbaulderstone.gamelogic.interfaces;
 
 @FunctionalInterface
 public interface InvalidInputCallback {

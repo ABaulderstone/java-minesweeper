@@ -1,7 +1,8 @@
-package com.alexbaulderstone.gamelogic;
+package com.alexbaulderstone.gamelogic.board;
 
 import java.util.ArrayList;
 import java.util.Random;
+
 import lombok.Getter;
 
 @Getter
@@ -15,18 +16,23 @@ public class Board {
 
     }
 
-    public void revealCell(byte xCoord, byte yCoord) {
+    public CellType revealCell(byte xCoord, byte yCoord) {
         Cell foundCell = grid[xCoord][yCoord];
         if (foundCell.isRevealed()) {
-            return;
+            return CellType.EMPTY;
         }
         foundCell.setRevealed(true);
+        if (foundCell.isBomb()) {
+            return CellType.BOMB;
+        }
+        // cascade effect
         if (foundCell.getSurroundingBombs() == 0) {
             ArrayList<Cell> neighbourCells = getNeighbouringCells(xCoord, yCoord);
             for (Cell cell : neighbourCells) {
                 revealCell(cell.getXCoord(), cell.getYCoord());
             }
         }
+        return CellType.EMPTY;
     }
 
     private Cell[][] constructGrid(byte gridSize) {
@@ -49,7 +55,7 @@ public class Board {
             if (cell.isBomb()) {
                 continue;
             }
-            cell.setBomb(true);
+            cell.setBomb();
             bombsPlaced++;
         }
     }
@@ -66,6 +72,9 @@ public class Board {
                     }
                 }
                 cell.setSurroundingBombs(surroundingBombCount);
+                if (surroundingBombCount > 0) {
+                    cell.setCellType(CellType.COUNTER);
+                }
             }
         }
     }
