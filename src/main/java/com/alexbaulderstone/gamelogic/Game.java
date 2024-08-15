@@ -34,7 +34,7 @@ public class Game {
             String coordString = input.getValidCoordinate((byte) board.getGrid().length, this::drawBoard);
             byte[] coords = parser.translateCoordinateString(coordString);
             CellType result = board.revealCell(coords[0], coords[1]);
-            if (result == CellType.EMPTY) {
+            if (result == CellType.BOMB) {
                 gameState = GameState.LOST;
             }
             CliOutput.clearScreen();
