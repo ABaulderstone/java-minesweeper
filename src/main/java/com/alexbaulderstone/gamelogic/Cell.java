@@ -14,12 +14,18 @@ public class Cell {
     @Getter
     @Setter
     private byte surroundingBombs;
+    @Getter
+    private byte xCoord;
+    @Getter
+    private byte yCoord;
 
-    public Cell() {
+    public Cell(byte xCoord, byte yCoord) {
         this.isBomb = false;
         this.isRevealed = false;
         this.isFlagged = false;
         this.surroundingBombs = 0;
+        this.xCoord = xCoord;
+        this.yCoord = yCoord;
     }
 
     public String showFace() {
@@ -36,6 +42,12 @@ public class Cell {
             return " ";
         }
         return String.format("%s", this.surroundingBombs);
+    }
+
+    @Override
+    public String toString() {
+        return "Cell [isBomb=" + isBomb + ", isRevealed=" + isRevealed + ", isFlagged=" + isFlagged
+                + ", surroundingBombs=" + surroundingBombs + ", xCoord=" + xCoord + ", yCoord=" + yCoord + "]";
     }
 
 }

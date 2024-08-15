@@ -17,14 +17,23 @@ public class Board {
 
     public void revealCell(byte xCoord, byte yCoord) {
         Cell foundCell = grid[xCoord][yCoord];
+        if (foundCell.isRevealed()) {
+            return;
+        }
         foundCell.setRevealed(true);
+        if (foundCell.getSurroundingBombs() == 0) {
+            ArrayList<Cell> neighbourCells = getNeighbouringCells(xCoord, yCoord);
+            for (Cell cell : neighbourCells) {
+                revealCell(cell.getXCoord(), cell.getYCoord());
+            }
+        }
     }
 
     private Cell[][] constructGrid(byte gridSize) {
         Cell[][] grid = new Cell[gridSize][gridSize];
         for (byte i = 0; i < gridSize; i++) {
             for (byte j = 0; j < gridSize; j++) {
-                grid[i][j] = new Cell();
+                grid[i][j] = new Cell(i, j);
             }
         }
         return grid;
