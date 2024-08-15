@@ -2,6 +2,7 @@ package com.alexbaulderstone.gamelogic;
 
 public class Game {
     private IGameInput input;
+    private IGameOutput output;
     private GameState gameState;
     private Board board;
 
@@ -11,14 +12,17 @@ public class Game {
         LOST
     }
 
-    public Game(IGameInput input) {
+    public Game(IGameInput input, IGameOutput output) {
         this.input = input;
+        this.output = output;
     }
 
     public void run() {
         this.setUp();
 
         while (gameState == GameState.PLAYING) {
+            drawBoard();
+            input.getValidCoordinate((byte) board.getGrid().length, this::drawBoard);
 
         }
     }
@@ -28,6 +32,10 @@ public class Game {
         this.board = new Board(gridSize);
         this.gameState = GameState.PLAYING;
 
+    }
+
+    private void drawBoard() {
+        output.drawBoard(board);
     }
 
     private void playerTurn() {

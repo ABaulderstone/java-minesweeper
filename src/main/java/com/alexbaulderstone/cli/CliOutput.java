@@ -4,12 +4,14 @@ import java.io.IOException;
 
 import com.alexbaulderstone.gamelogic.Board;
 import com.alexbaulderstone.gamelogic.Cell;
+import com.alexbaulderstone.gamelogic.IGameOutput;
 
-import lombok.Synchronized;
+public class CliOutput implements IGameOutput {
+    public CliOutput() {
 
-public class CliOutput {
+    }
 
-    public static void drawBoard(Board board) {
+    public void drawBoard(Board board) {
         Cell[][] grid = board.getGrid();
         int rows = grid.length;
         int cols = grid[0].length;
@@ -51,7 +53,7 @@ public class CliOutput {
         }
     }
 
-    private static void printHorizontalBorder(int cols, int cellWidth) {
+    private void printHorizontalBorder(int cols, int cellWidth) {
         // two spaces for row label
         System.out.print("  +");
         for (int j = 0; j < cols; j++) {

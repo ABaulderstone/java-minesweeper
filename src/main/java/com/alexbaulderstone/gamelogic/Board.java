@@ -15,6 +15,11 @@ public class Board {
 
     }
 
+    public void revealCell(byte xCoord, byte yCoord) {
+        Cell foundCell = grid[xCoord][yCoord];
+        foundCell.setRevealed(true);
+    }
+
     private Cell[][] constructGrid(byte gridSize) {
         Cell[][] grid = new Cell[gridSize][gridSize];
         for (byte i = 0; i < gridSize; i++) {
