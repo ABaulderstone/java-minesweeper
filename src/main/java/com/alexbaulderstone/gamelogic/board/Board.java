@@ -71,6 +71,9 @@ public class Board {
             for (byte j = 0; j < grid[i].length; j++) {
                 byte surroundingBombCount = 0;
                 Cell cell = grid[i][j];
+                if (cell.isBomb()) {
+                    continue;
+                }
                 ArrayList<Cell> neighbouringCells = getNeighbouringCells(i, j);
                 for (Cell neighbour : neighbouringCells) {
                     if (neighbour.isBomb()) {
