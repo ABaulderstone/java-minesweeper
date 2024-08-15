@@ -28,21 +28,33 @@ public class Game {
 
     public void run() {
         this.setUp();
+        peek();
 
         while (gameState == GameState.PLAYING) {
             drawBoard();
+            System.out.println(board.getHiddenCells());
             String coordString = input.getValidCoordinate((byte) board.getGrid().length, this::drawBoard);
             byte[] coords = parser.translateCoordinateString(coordString);
             CellType result = board.revealCell(coords[0], coords[1]);
             if (result == CellType.BOMB) {
                 gameState = GameState.LOST;
             }
+            if (board.getHiddenCells() == board.getGrid().length) {
+                gameState = GameState.WON;
+            }
             CliOutput.clearScreen();
         }
 
         if (gameState == GameState.LOST) {
+            board.revealWholeBoard();
             drawBoard();
             output.displayLossMessage();
+        }
+
+        if (gameState == GameState.WON) {
+            board.revealWholeBoard();
+            drawBoard();
+            output.displayWonMessage();
         }
     }
 
@@ -55,6 +67,12 @@ public class Game {
 
     private void drawBoard() {
         output.drawBoard(board);
+    }
+
+    private void peek() {
+        board.revealWholeBoard();
+        drawBoard();
+        board.hideWholeBoard();
     }
 
     private void playerTurn() {

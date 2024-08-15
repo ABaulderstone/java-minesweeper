@@ -2,14 +2,17 @@ package com.alexbaulderstone.gamelogic.board;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Arrays;
 
 import lombok.Getter;
 
 @Getter
 public class Board {
     private Cell[][] grid;
+    private byte hiddenCells;
 
     public Board(byte gridSize) {
+        hiddenCells = 0;
         grid = constructGrid(gridSize);
         placeBombs(gridSize);
         calculateSurroundingBombs();
@@ -25,6 +28,7 @@ public class Board {
         if (foundCell.isBomb()) {
             return CellType.BOMB;
         }
+        calculateHiddenCells();
         // cascade effect
         if (foundCell.getSurroundingBombs() == 0) {
             ArrayList<Cell> neighbourCells = getNeighbouringCells(xCoord, yCoord);
@@ -40,6 +44,7 @@ public class Board {
         for (byte i = 0; i < gridSize; i++) {
             for (byte j = 0; j < gridSize; j++) {
                 grid[i][j] = new Cell(i, j);
+                hiddenCells++;
             }
         }
         return grid;
@@ -58,6 +63,7 @@ public class Board {
             cell.setBomb();
             bombsPlaced++;
         }
+
     }
 
     private void calculateSurroundingBombs() {
@@ -100,6 +106,19 @@ public class Board {
             }
         }
         return neighbouringCells;
+    }
+
+    private void calculateHiddenCells() {
+        byte count = (byte) Arrays.stream(grid).flatMap(Arrays::stream).filter(c -> !c.isRevealed()).count();
+        this.hiddenCells = count;
+    }
+
+    public void revealWholeBoard() {
+        Arrays.stream(grid).flatMap(Arrays::stream).forEach(c -> c.setRevealed(true));
+    }
+
+    public void hideWholeBoard() {
+        Arrays.stream(grid).flatMap(Arrays::stream).forEach(c -> c.setRevealed(false));
     }
 
 }

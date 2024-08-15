@@ -6,4 +6,6 @@ public interface IGameOutput {
     public void drawBoard(Board board);
 
     public void displayLossMessage();
+
+    public void displayWonMessage();
 }

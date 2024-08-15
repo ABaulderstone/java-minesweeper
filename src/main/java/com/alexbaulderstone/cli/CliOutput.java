@@ -30,6 +30,10 @@ public class CliOutput implements IGameOutput {
         System.out.println("Sorry you hit a bomb. Game over");
     }
 
+    public void displayWonMessage() {
+        System.out.println("Congratulations, you cleared the board without hitting a mine");
+    }
+
     public void drawBoard(Board board) {
         Cell[][] grid = board.getGrid();
         int rows = grid.length;
