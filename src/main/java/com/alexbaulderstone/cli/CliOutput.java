@@ -26,12 +26,12 @@ public class CliOutput implements IGameOutput {
 
     public void displayLossMessage() {
 
-        System.out.println("BOOM");
-        System.out.println("Sorry you hit a bomb. Game over");
+        System.out.println(colorize("BOOM!", ColorText.RED));
+        System.out.println(colorize("Sorry, you hit a bomb. Game over", ColorText.RED));
     }
 
     public void displayWonMessage() {
-        System.out.println("Congratulations, you cleared the board without hitting a mine");
+        System.out.println(colorize("Congratulations, you cleared the board without hitting a mine", ColorText.GREEN));
     }
 
     public void drawBoard(Board board) {
@@ -53,7 +53,7 @@ public class CliOutput implements IGameOutput {
 
             System.out.print((char) ('A' + i) + " ");
             for (Cell cell : grid[i]) {
-                System.out.print("| " + cell.showFace() + " ");
+                System.out.print("| " + colorCellFace(cell.showFace()) + " ");
             }
             System.out.println("|");
 
@@ -71,6 +71,34 @@ public class CliOutput implements IGameOutput {
             System.out.print("-".repeat(cellWidth) + "+");
         }
         System.out.println();
+    }
+
+    private String colorize(String input, ColorText color) {
+        return color + input + ColorText.RESET;
+    }
+
+    private String colorCellFace(String input) {
+        switch (input) {
+            case "1":
+                return colorize(input, ColorText.CYAN);
+            case "2":
+                return colorize(input, ColorText.GREEN);
+            case "3":
+                return colorize(input, ColorText.RED);
+            case "4":
+                return colorize(input, ColorText.BLUE);
+            case "5":
+                return colorize(input, ColorText.ORANGE);
+            case "6":
+                return colorize(input, ColorText.TEAL);
+            case "7":
+                return colorize(input, ColorText.PURPLE);
+            case "8":
+                return colorize(input, ColorText.YELLOW);
+            default:
+                return input;
+
+        }
     }
 
 }
