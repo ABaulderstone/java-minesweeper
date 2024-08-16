@@ -26,9 +26,11 @@ public class Game {
         this.parser = parser;
     }
 
-    public void run() {
+    public void run(boolean debugMode) {
         this.setUp();
-        peek();
+        if (debugMode) {
+            peek();
+        }
 
         while (gameState == GameState.PLAYING) {
             drawBoard();
